@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">lab4task2</string>
+    <string name="contents">Contents</string>
+    <string name="author_field">Автор:</string>
+    <string name="title_field">Название:</string>
+    <string name="journal_field">Журнал:</string>
+    <string name="publisher_field">Издатель:</string>
+    <string name="year_field">Год:</string>
+</resources>
