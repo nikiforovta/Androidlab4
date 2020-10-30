@@ -2,6 +2,7 @@ package com.example.lab3task3
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -69,27 +70,44 @@ class MainActivity : AppCompatActivity() {
     }
 
     private class ItemAdapter(private val items: List<Item>) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, index: Int): RecyclerView.ViewHolder {
-            return object : RecyclerView.ViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item, parent, false)
-            ) {}
+        RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, index: Int): ViewHolder {
+            return ViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+            )
         }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, index: Int) {
-            holder.itemView.findViewById<TextView>(R.id.author).text =
-                String.format("%s", items[index].author)
-            holder.itemView.findViewById<TextView>(R.id.title).text =
-                String.format("%s", items[index].title)
-            holder.itemView.findViewById<TextView>(R.id.journal).text =
-                String.format("%s", items[index].journal)
-            holder.itemView.findViewById<TextView>(R.id.publisher).text =
-                String.format("%s", items[index].publisher)
-            holder.itemView.findViewById<TextView>(R.id.year).text =
-                String.format("%s", items[index].year)
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.author!!.text =
+                String.format("%s", items[position].author)
+            holder.title!!.text =
+                String.format("%s", items[position].title)
+            holder.journal!!.text =
+                String.format("%s", items[position].journal)
+            holder.publisher!!.text =
+                String.format("%s", items[position].publisher)
+            holder.year!!.text =
+                String.format("%s", items[position].year)
         }
 
         override fun getItemCount(): Int = items.size
+
+        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            var author: TextView? = null
+            var title: TextView? = null
+            var journal: TextView? = null
+            var publisher: TextView? = null
+            var year: TextView? = null
+
+            init {
+                author = itemView.findViewById(R.id.author)
+                title = itemView.findViewById(R.id.title)
+                journal = itemView.findViewById(R.id.journal)
+                publisher = itemView.findViewById(R.id.publisher)
+                year = itemView.findViewById(R.id.year)
+            }
+
+        }
     }
 }
