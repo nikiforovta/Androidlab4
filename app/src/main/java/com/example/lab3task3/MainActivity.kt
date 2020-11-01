@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if ((recycler.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition() == items.size - 1) reloadList()
+                if ((recycler.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition() == items.size - 1) recycler.scrollToPosition(0)
             }
         })
     }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         ).use { reader ->
             this.database = BibDatabase(reader)
             var i = 0
-            while (i < 32) {
+            while (i < database.size) {
                 val entry = database.getEntry(i)
                 items.add(
                     Item(
@@ -62,11 +62,6 @@ class MainActivity : AppCompatActivity() {
                 i++
             }
         }
-    }
-
-    private fun reloadList() {
-        initializeList()
-        adapter.notifyDataSetChanged()
     }
 
     private class ItemAdapter(private val items: List<Item>) :
@@ -107,7 +102,6 @@ class MainActivity : AppCompatActivity() {
                 publisher = itemView.findViewById(R.id.publisher)
                 year = itemView.findViewById(R.id.year)
             }
-
         }
     }
 }
